@@ -4,11 +4,13 @@ elgg.ajaxify.likes.action = function(item) {
 	var actionURL = elgg.ajaxify.getURLFromMenuItem(item);
 	elgg.action(actionURL, {
 		success: function() {
-			elgg.view('likes/display', {
+			var riverItem = $(item).parent().parent().parent().parent();
+			var riverItemId = riverItem.attr('id').match(/item-river-(\d+)/)[1];
+			elgg.view('river/getitem', {
 				data: {
-					'guid': entityGUID
+					'id' : riverItemId
 				}, 
-				target: $(item),
+				target: $(riverItem),
 			});
 		}
 	});
